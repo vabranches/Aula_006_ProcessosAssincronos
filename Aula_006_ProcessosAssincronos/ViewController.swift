@@ -1,24 +1,37 @@
-//
-//  ViewController.swift
-//  Aula_006_ProcessosAssincronos
-//
-//  Created by Swift on 23/01/17.
-//  Copyright © 2017 Swift. All rights reserved.
-//
 
 import UIKit
 
 class ViewController: UIViewController {
+    
+    //MARK: Outlets
+    @IBOutlet weak var labelCima: UILabel!
+    @IBOutlet weak var labelBaixo: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+    }
+    
+    //MARK: Actions
+    @IBAction func iniciar(_ sender: UIButton) {
+        DispatchQueue.global().async {
+            for i in 10...20{
+                DispatchQueue.main.async(execute: {self.labelCima.text = "\(i)"})
+                Thread.sleep(forTimeInterval: 1.0)
+            }
+        }
+        
+        DispatchQueue.global().async {
+            for i in 1...10{
+                DispatchQueue.main.async(execute: {self.labelBaixo.text = "\(i)"})
+                Thread.sleep(forTimeInterval: 1.0)
+            }
+        }
+        
+        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
 
 
 }
